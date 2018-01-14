@@ -27,3 +27,7 @@ Please see the [Data Connector technical reference](docs/m-extensions.md) for mo
 
 Reviewing the [M Extensibility documentation](../../docs/m-extensions.md) before starting this tutorial is highly recommended.
 
+## to run 
+1. login in to pardot to grab your email,password and your user_key under : https://pi.pardot.com/account/user
+1. see object types here: http://developer.pardot.com/kb/object-field-references/
+

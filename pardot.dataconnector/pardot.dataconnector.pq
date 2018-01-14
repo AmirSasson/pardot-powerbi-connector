@@ -6,15 +6,20 @@ section pardot;
 pardot = [
     Authentication = [
         //Key = [],
-        UsernamePassword = []
+        UsernamePassword = [
+			Label = "Pardot Authentication",
+			UsernameLabel = "Email#user_key (EMAIL and USER_KEY seperated by '#')"		
+		 ]
         // Windows = [],
         //Implicit = []
     ],
     Label = Extension.LoadString("DataSourceLabel")
 ];
 
-//user_key = Text.FromBinary(Extension.Contents("user_key"));
 // Data Source UI publishing description
+//api_domain = "http://localhost:9907";
+api_domain = "https://pi.pardot.com";
+
 
 pardot.Publish = [
     Beta = true,
@@ -25,19 +30,21 @@ pardot.Publish = [
     SourceTypeImage = pardot.Icons
 ];
 [DataSource.Kind="pardot", Publish="pardot.Publish"]
-shared pardot.Contents = (objectName as text, user_key as text) =>
+shared pardot.Contents = (objectName as text) =>
     let
         Credential = Extension.CurrentCredential(),
-        token = TokenMethod(user_key),
-        //content = Json.Document(Web.Contents(Text.Format("https://pi.pardot.com/api/#{0}/version/3/do/query",{objectName}),
-        data = Web.Contents("http://localhost:9907/api/pardot/data",
+		split = Text.Split(Credential[Username],"#"),
+		email = List.First(split),
+		user_key = List.Last(split),
+        token = TokenMethod(user_key, email, Credential[Password]),		     
+		data = Web.Contents(Text.Format("#{0}/api/#{1}/version/3/do/query",{api_domain,objectName}),        
         [
             ManualCredentials = true,
-            Content = Text.ToBinary(Uri.BuildQueryString([
-                email = Credential[Username],
-                password = Credential[Password],
+			Query = [
+                user_key = user_key,
                 api_key = token,
-                output="bulk"]))            
+                output="bulk"],
+			Content = Text.ToBinary("")            
         ]
         ),
 
@@ -49,13 +56,12 @@ shared pardot.Contents = (objectName as text, user_key as text) =>
     in
         objectsTable;
 
-TokenMethod = (user_key) =>
-    let
-        Credential = Extension.CurrentCredential(),
-        //Response = Web.Contents("https://pi.pardot.com/api/login/version/3", [
-        Response = Web.Contents("http://localhost:9907/api/pardot/token", [
-            ManualCredentials = true,
-            Content = Text.ToBinary(Uri.BuildQueryString([email = Credential[Username],password = Credential[Password],user_key = user_key]))            
+TokenMethod = (user_key, email, password) =>
+    let        
+        Response = Web.Contents(Text.Format("#{0}/api/login/version/3",{api_domain}), [
+            ManualCredentials = true,  
+			Query = [email = email,password = password,user_key = user_key],
+			Content = Text.ToBinary("")
         ]),
       
         Parts = Xml.Tables(Response),          

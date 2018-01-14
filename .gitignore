@@ -2,3 +2,6 @@
 .history
 pardot.dataconnector/obj
 pardot.dataconnector/bin
+node_modules
+fake/fake-pardot.js
+fake/fake-pardot.js.map
