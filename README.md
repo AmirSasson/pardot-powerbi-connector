@@ -4,9 +4,9 @@ Based on [PowerBI Custom connectors](https://github.com/Microsoft/DataConnectors
 Authenticate and queries the [Pardot Api](http://developer.pardot.com/#official-pardot-api-documentation) 
 
 ## Prerequisites
-Data Connectors are created using the [M language](https://msdn.microsoft.com/library/mt211003.aspx). This is the same language used by the Power Query user experience found in Power BI Desktop and Excel 2016. Extensions allow you to define new functions for the M language, and can be used to enable connectivity to new data sources. While this document will focus on defining new connectors, much of the same process applies to defining general purpose M functions. Extensions can vary in complexity, from simple wrappers that essentially just provide "branding" over existing data source functions, to rich connectors that support Direct Query.
-
-Please see the [Data Connector technical reference](docs/m-extensions.md) for more details.
+* Data Connectors are created using the [M language](https://msdn.microsoft.com/library/mt211003.aspx). This is the same language used by the Power Query user experience found in Power BI Desktop and Excel 2016. Extensions allow you to define new functions for the M language, and can be used to enable connectivity to new data sources. While this document will focus on defining new connectors, much of the same process applies to defining general purpose M functions. Extensions can vary in complexity, from simple wrappers that essentially just provide "branding" over existing data source functions, to rich connectors that support Direct Query. Please see the [Data Connector technical reference](docs/m-extensions.md) for more details.
+* pardot credentials : login in to pardot to grab your email,password and your user_key under : https://pi.pardot.com/account/user
+* for development you can use the **fake-pardot** node application and use the localhost domain as the pardot endpoint
 
 ## Quickstart
 
@@ -27,7 +27,11 @@ Please see the [Data Connector technical reference](docs/m-extensions.md) for mo
 
 Reviewing the [M Extensibility documentation](../../docs/m-extensions.md) before starting this tutorial is highly recommended.
 
-## to run 
-1. login in to pardot to grab your email,password and your user_key under : https://pi.pardot.com/account/user
-1. see object types here: http://developer.pardot.com/kb/object-field-references/
+## Connect to Data source
+1. Get Data : Pardot plugin
+2. select yout object type: see object types here: http://developer.pardot.com/kb/object-field-references/
+3. in authentication window :
+    * provide your email + user_key seperated by hashtag "#" , _i.e. amir@gamil.com#MY_APIKEY_
+    * provide password
+4. name you query and explore!
 
