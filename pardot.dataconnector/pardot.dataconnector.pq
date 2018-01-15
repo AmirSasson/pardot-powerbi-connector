@@ -30,21 +30,21 @@ pardot.Publish = [
     SourceTypeImage = pardot.Icons
 ];
 [DataSource.Kind="pardot", Publish="pardot.Publish"]
-shared pardot.Contents = (objectName as text) =>
+shared pardot.Contents = (#"Pardot Object Name" as text) =>
     let
         Credential = Extension.CurrentCredential(),
 		split = Text.Split(Credential[Username],"#"),
 		email = List.First(split),
 		user_key = List.Last(split),
         token = TokenMethod(user_key, email, Credential[Password]),		     
-		data = Web.Contents(Text.Format("#{0}/api/#{1}/version/3/do/query",{api_domain,objectName}),        
+		data = Web.Contents(Text.Format("#{0}/api/#{1}/version/3/do/query",{api_domain,#"Pardot Object Name"}),        
         [
             ManualCredentials = true,
 			Query = [
                 user_key = user_key,
                 api_key = token,
                 output="bulk"],
-			Content = Text.ToBinary("")            
+			Content = Text.ToBinary("") // to trigger HTTP POST       
         ]
         ),
 
@@ -61,7 +61,7 @@ TokenMethod = (user_key, email, password) =>
         Response = Web.Contents(Text.Format("#{0}/api/login/version/3",{api_domain}), [
             ManualCredentials = true,  
 			Query = [email = email,password = password,user_key = user_key],
-			Content = Text.ToBinary("")
+			Content = Text.ToBinary("") // to trigger HTTP POST
         ]),
       
         Parts = Xml.Tables(Response),          
