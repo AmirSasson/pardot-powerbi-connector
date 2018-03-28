@@ -1,5 +1,5 @@
 # pardot-powerbi-connector
-out of the box salesforce->paradot data connector.
+out of the box pardot(saleforce)->powerbi data connector.
 Based on [PowerBI Custom connectors](https://github.com/Microsoft/DataConnectors).
 Authenticate and queries the [Pardot Api](http://developer.pardot.com/#official-pardot-api-documentation) 
 
