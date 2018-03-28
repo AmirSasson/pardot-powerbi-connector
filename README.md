@@ -30,8 +30,8 @@ Reviewing the [M Extensibility documentation](../../docs/m-extensions.md) before
 ## Connect to Data source
 1. Get Data : Pardot plugin
 2. select yout object type: see object types here: http://developer.pardot.com/kb/object-field-references/
-3. in authentication window :
-    * provide your email + user_key seperated by hashtag "#" , _i.e. amir@gamil.com#MY_APIKEY_
+3. in the authentication window :
+    * provide your email + user_key seperated by hashtag "#" , _i.e. amir@gmail.com#MY_APIKEY_
     * provide password
-4. name you query and explore!
+4. name your query and explore!
 
